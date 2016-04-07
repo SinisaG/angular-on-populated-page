@@ -1,0 +1,81 @@
+<html>
+    <head>
+      <base href="/">
+      <title>Angular demo</title>
+      <style>
+        body {
+          background: #e1e6ea;
+          font-family: sans-serif;
+        }
+        img {
+          display: block;
+          width: 1000px;
+        }
+      </style>
+    </head>
+    <body>
+        <div style="background: #32b846; color:white; height: 64px; text-align: center; line-height: 64px; font-size: 36px;">
+            Header
+        </div>
+        <div ng-view>
+          <h1>This is a static html page (check out page source, you will see full template is present)</h1>
+          <p>
+              This should demonstrate, that we can send server side populated templates to speed up the initial page load.
+              Then we load our SPA asynchronously and bootstrap it, when user initates a view change.
+          </p>
+          <p>
+            <a href="/nextpage">Link (bootstrap angular on click)</a>
+          </p>
+      </div>
+      <script>
+          (function (window, document) {
+
+            var appLoaded = false;
+
+            asyncScriptLoad(window.location.host + '/scripts/dist/all.js', setLoadedFlag);
+
+            function setLoadedFlag () {
+                appLoaded = true;
+            }
+
+            document.addEventListener("click", angularLoader);
+
+            function angularLoader (e){
+                if (e.target.nodeName.toLowerCase() === 'a') {
+                  if(appLoaded) {
+                    //cleanup
+                    document.removeEventListener("click", angularLoader);
+                    //bootstrap angular
+                    angular.bootstrap(document, ['demoApp']);
+                    //update url
+                    if ('history' in window) {
+                      window.history.replaceState({}, '', e.target.href);
+                    }
+                  } else {
+                    window.alert ("Angular not loaded yet");
+                  }
+                  // prevent navigation
+                  event.preventDefault ();
+                }
+            }
+            // http://stackoverflow.com/questions/12820953/asynchronous-script-loading-callback#answer-12821561
+            // should be used for loading scripts async and have a callback if needed on load
+            function asyncScriptLoad(u, c) {
+                var d = document,
+                        t = 'script',
+                        o = d.createElement(t),
+                        s = d.getElementsByTagName(t)[0];
+                // XXX note that ideally this '//' trick should be avoided now that HTTP is deprecated
+                // https://blog.mozilla.org/security/2015/04/30/deprecating-non-secure-http/
+                o.src = '//' + u;
+                if (c) {
+                    o.addEventListener('load', function (e) {
+                        c(null, e);
+                    }, false);
+                }
+                s.parentNode.insertBefore(o, s);
+            };
+          } (window, document));
+      </script>
+    </body>
+</html>

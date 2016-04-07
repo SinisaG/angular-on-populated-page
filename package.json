@@ -1,0 +1,26 @@
+{
+  "name": "angular-on-populated-page",
+  "version": "1.0.0",
+  "description": "Demo how to activate angular after initial first html page load",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SinisaG/angular-on-populated-page.git"
+  },
+  "author": "Sinisa Grubor <sinisa.grubor@onefootball.com> (https://www.onefootball.com/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/SinisaG/angular-on-populated-page/issues"
+  },
+  "homepage": "https://github.com/SinisaG/angular-on-populated-page#readme",
+  "devDependencies": {
+    "grunt": "1.0.1",
+    "grunt-contrib-concat": "1.0.0",
+    "grunt-contrib-connect": "1.0.1",
+    "grunt-contrib-uglify": "1.0.1",
+    "load-grunt-tasks": "3.4.1"
+  }
+}
