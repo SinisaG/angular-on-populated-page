@@ -8,15 +8,15 @@
   demoApp.config(['$routeProvider', '$locationProvider',
       function($routeProvider, $locationProvider) {
 
-          $locationProvider.html5Mode(true).hashPrefix('!');
+          $locationProvider.html5Mode(true);
 
           $routeProvider.
           when('/', {
               templateUrl: 'views/index.html',
-              controller: {}
+              controller: 'indexCtrl'
           }).
           when('/nextpage', {
-              templateUrl: '/views/nextpage.html',
+              templateUrl: 'views/nextpage.html',
               controller: 'nextCtrl'
           }).
           otherwise({
@@ -26,6 +26,9 @@
 
 
   var demoControllers = angular.module('demoControllers', []);
+
+  demoControllers.controller('indexCtrl', [function () {
+  }]);
 
   demoControllers.controller('nextCtrl', ['$scope', function ($scope) {
       $scope.paragraph = 'Yey, it works!';

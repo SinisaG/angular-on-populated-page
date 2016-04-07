@@ -1,15 +1,13 @@
 <html>
     <head>
-      <base href="/">
+      <script>
+          document.write('<base href="' + document.location.pathname + '" />');
+      </script>
       <title>Angular demo</title>
       <style>
         body {
           background: #e1e6ea;
           font-family: sans-serif;
-        }
-        img {
-          display: block;
-          width: 1000px;
         }
       </style>
     </head>
@@ -32,7 +30,7 @@
 
             var appLoaded = false;
 
-            asyncScriptLoad(window.location.host + '/scripts/dist/all.js', setLoadedFlag);
+            asyncScriptLoad(window.location.host + window.location.pathname + 'scripts/dist/all.js', setLoadedFlag);
 
             function setLoadedFlag () {
                 appLoaded = true;
@@ -49,9 +47,12 @@
                     angular.bootstrap(document, ['demoApp']);
                     //update url
                     if ('history' in window) {
-                      window.history.replaceState({}, '', e.target.href);
+                      window.history.pushState({}, '',  window.location.pathname + e.target.pathname.replace('/', ''));
                     }
                   } else {
+                    //normally, you can just navigate to the link,
+                    //it would trigger a page reload and then users would wait
+                    //for angular to be loaded
                     window.alert ("Angular not loaded yet");
                   }
                   // prevent navigation
